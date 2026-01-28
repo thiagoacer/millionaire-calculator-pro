@@ -91,33 +91,33 @@ const MillionCalculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-lg mx-auto">
+    <div className="min-h-screen bg-background py-12 px-4 font-body">
+      <div className="max-w-xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-            <Target className="w-8 h-8 text-primary" />
+        <div className="text-center mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-accent mb-6 border border-secondary/20 shadow-sm">
+            <Target className="w-8 h-8 text-primary" strokeWidth={1.5} />
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl md:text-5xl font-heading font-medium text-foreground mb-4 tracking-tight">
             Calculadora do Milhão
           </h1>
-          <p className="text-muted-foreground">
-            Descubra em quanto tempo você pode conquistar seu primeiro milhão
+          <p className="text-muted-foreground text-lg max-w-sm mx-auto leading-relaxed">
+            Planejamento patrimonial para mulheres que valorizam exclusividade e retorno.
           </p>
         </div>
 
         {/* Calculator Form */}
         {!result && (
-          <Card className="shadow-lg border-border/50">
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Calculator className="w-5 h-5 text-primary" />
+          <Card className="shadow-sm border border-border/60 bg-card/80 backdrop-blur-sm rounded-xl">
+            <CardHeader className="pb-6 pt-8 px-8 border-b border-border/40">
+              <CardTitle className="flex items-center gap-3 text-xl font-heading font-medium text-primary">
+                <Calculator className="w-5 h-5 text-secondary" strokeWidth={1.5} />
                 Seus Dados
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-8">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-5">
+                <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-8">
 
                   {/* Name */}
                   <FormField
@@ -125,9 +125,13 @@ const MillionCalculator = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Seu Nome</FormLabel>
+                        <FormLabel className="text-foreground/80 font-medium">Seu Nome</FormLabel>
                         <FormControl>
-                          <Input placeholder="Digite seu nome" {...field} className="h-12" />
+                          <Input
+                            placeholder="Como gostaria de ser chamada?"
+                            {...field}
+                            className="h-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all placeholder:text-muted-foreground/40"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -140,13 +144,13 @@ const MillionCalculator = () => {
                     name="age"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Idade Atual</FormLabel>
+                        <FormLabel className="text-foreground/80 font-medium">Idade Atual</FormLabel>
                         <FormControl>
                           <Input
                             type="number"
                             placeholder="Ex: 30"
                             {...field}
-                            className="h-12"
+                            className="h-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all placeholder:text-muted-foreground/40"
                           />
                         </FormControl>
                         <FormMessage />
@@ -160,17 +164,17 @@ const MillionCalculator = () => {
                     name="currentInvestment"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Quanto já tem investido? (R$)</FormLabel>
+                        <FormLabel className="text-foreground/80 font-medium">Quanto já tem investido? (R$)</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/70 font-serif italic text-lg">
                               R$
                             </span>
                             <Input
                               placeholder="0"
                               value={field.value}
                               onChange={(e) => handleCurrencyChange(e, field.onChange)}
-                              className="h-12 pl-10"
+                              className="h-12 pl-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all font-medium placeholder:text-muted-foreground/40"
                             />
                           </div>
                         </FormControl>
@@ -185,17 +189,17 @@ const MillionCalculator = () => {
                     name="monthlyInvestment"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Quanto pode investir por mês? (R$)</FormLabel>
+                        <FormLabel className="text-foreground/80 font-medium">Quanto pode investir por mês? (R$)</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/70 font-serif italic text-lg">
                               R$
                             </span>
                             <Input
                               placeholder="0"
                               value={field.value}
                               onChange={(e) => handleCurrencyChange(e, field.onChange)}
-                              className="h-12 pl-10"
+                              className="h-12 pl-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all font-medium placeholder:text-muted-foreground/40"
                             />
                           </div>
                         </FormControl>
@@ -209,51 +213,53 @@ const MillionCalculator = () => {
                     control={form.control}
                     name="profile"
                     render={({ field }) => (
-                      <FormItem className="space-y-3">
-                        <FormLabel>Perfil de Investidor</FormLabel>
+                      <FormItem className="space-y-4">
+                        <FormLabel className="text-foreground/80 font-medium text-lg">Perfil de Investidor</FormLabel>
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
                             defaultValue={field.value}
-                            className="space-y-3"
+                            className="grid grid-cols-1 gap-4"
                           >
                             <FormItem>
-                              <FormLabel className="font-normal">
+                              <FormLabel className="font-normal w-full cursor-pointer">
                                 <label
                                   htmlFor="conservative"
-                                  className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${field.value === "conservative"
-                                    ? "border-primary bg-primary/5"
-                                    : "border-border hover:border-primary/50"
+                                  className={`flex items-start gap-4 p-5 rounded-lg border transition-all duration-300 w-full hover:shadow-md ${field.value === "conservative"
+                                    ? "border-primary/30 bg-primary/5 ring-1 ring-primary/20"
+                                    : "border-border/60 bg-background hover:border-primary/20"
                                     }`}
                                 >
                                   <FormControl>
-                                    <RadioGroupItem value="conservative" id="conservative" className="mt-0.5" />
+                                    <RadioGroupItem value="conservative" id="conservative" className="mt-1 text-primary border-muted-foreground/40" />
                                   </FormControl>
                                   <div>
-                                    <div className="font-medium text-foreground">Segurança acima de tudo</div>
-                                    <div className="text-sm text-muted-foreground">
-                                      Poupança, CDB, Tesouro Direto
+                                    <div className="font-heading font-medium text-lg text-foreground mb-1">Preservação de Capital</div>
+                                    <div className="text-sm text-muted-foreground leading-relaxed">
+                                      Prefiro segurança e previsibilidade. <br />
+                                      <span className="text-primary/80 font-medium mt-1 inline-block">Renda Fixa (CDBs, Tesouro Direto e Fundos)</span>
                                     </div>
                                   </div>
                                 </label>
                               </FormLabel>
                             </FormItem>
                             <FormItem>
-                              <FormLabel className="font-normal">
+                              <FormLabel className="font-normal w-full cursor-pointer">
                                 <label
                                   htmlFor="aggressive"
-                                  className={`flex items-start gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${field.value === "aggressive"
-                                    ? "border-secondary bg-secondary/5"
-                                    : "border-border hover:border-secondary/50"
+                                  className={`flex items-start gap-4 p-5 rounded-lg border transition-all duration-300 w-full hover:shadow-md ${field.value === "aggressive"
+                                    ? "border-secondary/50 bg-secondary/10 ring-1 ring-secondary/30"
+                                    : "border-border/60 bg-background hover:border-secondary/30"
                                     }`}
                                 >
                                   <FormControl>
-                                    <RadioGroupItem value="aggressive" id="aggressive" className="mt-0.5" />
+                                    <RadioGroupItem value="aggressive" id="aggressive" className="mt-1 text-secondary border-muted-foreground/40" />
                                   </FormControl>
                                   <div>
-                                    <div className="font-medium text-foreground">Aceito risco para ganhar mais</div>
-                                    <div className="text-sm text-muted-foreground">
-                                      Ações, FIIs, Criptomoedas
+                                    <div className="font-heading font-medium text-lg text-foreground mb-1">Construção de Patrimônio</div>
+                                    <div className="text-sm text-muted-foreground leading-relaxed">
+                                      Busco rentabilidade acima da média. <br />
+                                      <span className="text-secondary/90 font-medium mt-1 inline-block">Ações, FIIs, Investimentos Globais</span>
                                     </div>
                                   </div>
                                 </label>
@@ -269,17 +275,18 @@ const MillionCalculator = () => {
                   <Button
                     type="submit"
                     disabled={isCalculating}
-                    className="w-full h-14 text-lg font-semibold shadow-md hover:shadow-lg transition-all"
+                    className="w-full h-14 text-sm uppercase tracking-[0.15em] font-medium shadow-lg shadow-primary/5 hover:shadow-xl transition-all rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 mt-6"
                     size="lg"
                   >
                     {isCalculating ? (
-                      <span className="flex items-center gap-2">
-                        <span className="animate-spin">⏳</span> Calculando...
+                      <span className="flex items-center gap-3">
+                        <span className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+                        Calculando Futuro...
                       </span>
                     ) : (
-                      <span className="flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5" />
-                        CALCULAR MEU MILHÃO
+                      <span className="flex items-center gap-2 font-heading">
+                        <TrendingUp className="w-5 h-5" strokeWidth={1.5} />
+                        PROJETAR MEU MILHÃO
                       </span>
                     )}
                   </Button>
@@ -291,72 +298,70 @@ const MillionCalculator = () => {
 
         {/* Results */}
         {result && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
             {result.scenario === "iniciante" ? (
               /* CENÁRIO 1: INICIANTE */
-              <Card className="shadow-lg border-destructive/30 bg-destructive/5">
-                <CardContent className="pt-6">
-                  <div className="text-center space-y-4">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-destructive/10 mb-2">
-                      <AlertTriangle className="w-8 h-8 text-destructive" />
+              <Card className="shadow-2xl shadow-destructive/5 border border-destructive/20 bg-background">
+                <CardContent className="pt-8 pb-8 px-8">
+                  <div className="text-center space-y-6">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-destructive/5 mb-2 border border-destructive/10">
+                      <AlertTriangle className="w-8 h-8 text-destructive" strokeWidth={1.5} />
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                      🚨 {result.name}, alerta vermelho!
+                    <h2 className="text-2xl md:text-3xl font-heading font-medium text-foreground">
+                      {result.name}, atenção ao seu futuro.
                     </h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                      No seu ritmo atual, você levará{" "}
-                      <span className="font-bold text-destructive text-lg">
+                    <p className="text-muted-foreground leading-relaxed text-lg max-w-md mx-auto">
+                      No seu ritmo atual, a liberdade financeira pode demorar{" "}
+                      <span className="font-bold text-destructive text-xl font-heading">
                         {result.yearsReal.toFixed(1)} anos
                       </span>{" "}
-                      para chegar ao milhão. Isso é muito tempo.
+                      para chegar.
                     </p>
-                    <div className="bg-card rounded-lg p-4 border border-border">
-                      <p className="text-foreground">
-                        Com a <span className="font-semibold text-secondary">Estratégia de Aceleração</span>, você
+                    <div className="bg-accent/30 rounded-lg p-6 border border-accent/50 max-w-sm mx-auto">
+                      <p className="text-foreground/90">
+                        Com uma <span className="font-semibold text-primary">Estratégia de Aceleração</span>, você
                         poderia reduzir isso para apenas{" "}
-                        <span className="font-bold text-secondary text-lg">
+                        <span className="font-bold text-primary text-xl font-heading block mt-2">
                           {result.yearsOptimized.toFixed(1)} anos
                         </span>
-                        .
                       </p>
                     </div>
 
                     <a
                       href="#offer-iniciante"
-                      className="inline-flex items-center justify-center w-full h-14 px-6 text-lg font-semibold rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-md hover:shadow-lg transition-all"
+                      className="inline-flex items-center justify-center w-full h-14 px-8 text-lg font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/10 hover:shadow-xl transition-all font-heading"
                     >
-                      Baixar Plano de Aceleração (R$ 97)
+                      Acessar Plano de Aceleração
                     </a>
                   </div>
                 </CardContent>
               </Card>
             ) : (
               /* CENÁRIO 2: INVESTIDOR */
-              <Card className="shadow-lg border-secondary/30 bg-secondary/5">
-                <CardContent className="pt-6">
-                  <div className="text-center space-y-4">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-secondary/10 mb-2">
-                      <PartyPopper className="w-8 h-8 text-secondary" />
+              <Card className="shadow-2xl shadow-secondary/10 border border-secondary/20 bg-background">
+                <CardContent className="pt-8 pb-8 px-8">
+                  <div className="text-center space-y-6">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-secondary/10 mb-2 border border-secondary/20">
+                      <PartyPopper className="w-8 h-8 text-secondary-foreground" strokeWidth={1.5} />
                     </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-foreground">
-                      🎉 Parabéns, {result.name}!
+                    <h2 className="text-2xl md:text-3xl font-heading font-medium text-foreground">
+                      Parabéns, {result.name}!
                     </h2>
-                    <p className="text-lg font-medium text-secondary">
-                      Você está no caminho da Elite.
+                    <p className="text-lg font-medium text-secondary-foreground font-heading">
+                      Você está construindo um legado sólido.
                     </p>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Sua projeção aponta que você chegará lá em apenas{" "}
-                      <span className="font-bold text-secondary text-lg">
+                    <p className="text-muted-foreground leading-relaxed text-lg max-w-md mx-auto">
+                      Sua projeção aponta que você chegará lá em{" "}
+                      <span className="font-bold text-secondary-foreground text-xl font-heading">
                         {result.yearsReal.toFixed(1)} anos
                       </span>
-                      . Você já está acima da média!
+                      .
                     </p>
-                    <div className="bg-card rounded-lg p-4 border border-border">
-                      <p className="text-foreground">
-                        Mas sabia que com{" "}
-                        <span className="font-semibold text-primary">Eficiência Tributária</span> você pode
-                        antecipar isso para{" "}
-                        <span className="font-bold text-primary text-lg">
+                    <div className="bg-accent/40 rounded-lg p-6 border border-accent/60 max-w-sm mx-auto">
+                      <p className="text-foreground/90">
+                        Mas sabia que com <span className="font-semibold text-primary">Eficiência Tributária</span> você pode
+                        antecipar sua liberdade para{" "}
+                        <span className="font-bold text-primary text-xl font-heading block mt-2">
                           {result.yearsOptimized.toFixed(1)} anos
                         </span>
                         ?
@@ -365,9 +370,9 @@ const MillionCalculator = () => {
 
                     <a
                       href="#offer-expert"
-                      className="inline-flex items-center justify-center w-full h-14 px-6 text-lg font-semibold rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg transition-all"
+                      className="inline-flex items-center justify-center w-full h-14 px-8 text-lg font-medium rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg shadow-secondary/10 hover:shadow-xl transition-all font-heading"
                     >
-                      Conhecer Mentoria Avançada
+                      Conhecer Mentoria Wealth
                     </a>
                   </div>
                 </CardContent>
@@ -376,11 +381,11 @@ const MillionCalculator = () => {
 
             {/* Recalculate Button */}
             <Button
-              variant="outline"
+              variant="ghost"
               onClick={() => {
                 setResult(null);
               }}
-              className="w-full h-12"
+              className="w-full h-12 text-muted-foreground hover:text-foreground font-medium"
             >
               Fazer Nova Simulação
             </Button>
@@ -388,8 +393,8 @@ const MillionCalculator = () => {
         )}
 
         {/* Footer */}
-        <p className="text-center text-xs text-muted-foreground mt-8">
-          * Simulação baseada em projeções de rentabilidade. Investimentos possuem riscos.
+        <p className="text-center text-xs text-muted-foreground/60 mt-12 max-w-xs mx-auto leading-relaxed">
+          * Simulação baseada em projeções de rentabilidade estimadas. Retornos passados não garantem ganhos futuros.
         </p>
       </div>
     </div>

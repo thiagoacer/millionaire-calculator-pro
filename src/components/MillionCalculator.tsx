@@ -166,15 +166,15 @@ const MillionCalculator = () => {
                       <FormItem>
                         <FormLabel className="text-foreground/80 font-medium">Quanto já tem investido? (R$)</FormLabel>
                         <FormControl>
-                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/70 font-serif italic text-lg">
+                          <div className="flex items-center border-b border-border/60 focus-within:border-secondary transition-colors h-12">
+                            <span className="text-muted-foreground/50 font-serif italic text-lg mr-3 mt-1">
                               R$
                             </span>
                             <Input
                               placeholder="0"
                               value={field.value}
                               onChange={(e) => handleCurrencyChange(e, field.onChange)}
-                              className="h-12 pl-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all font-medium placeholder:text-muted-foreground/40"
+                              className="h-full p-0 bg-transparent border-none focus:ring-0 focus:ring-offset-0 text-lg transition-all font-medium placeholder:text-muted-foreground/30 shadow-none -ml-1"
                             />
                           </div>
                         </FormControl>
@@ -191,15 +191,15 @@ const MillionCalculator = () => {
                       <FormItem>
                         <FormLabel className="text-foreground/80 font-medium">Quanto pode investir por mês? (R$)</FormLabel>
                         <FormControl>
-                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/70 font-serif italic text-lg">
+                          <div className="flex items-center border-b border-border/60 focus-within:border-secondary transition-colors h-12">
+                            <span className="text-muted-foreground/50 font-serif italic text-lg mr-3 mt-1">
                               R$
                             </span>
                             <Input
                               placeholder="0"
                               value={field.value}
                               onChange={(e) => handleCurrencyChange(e, field.onChange)}
-                              className="h-12 pl-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all font-medium placeholder:text-muted-foreground/40"
+                              className="h-full p-0 bg-transparent border-none focus:ring-0 focus:ring-offset-0 text-lg transition-all font-medium placeholder:text-muted-foreground/30 shadow-none -ml-1"
                             />
                           </div>
                         </FormControl>
@@ -299,103 +299,77 @@ const MillionCalculator = () => {
         {/* Results */}
         {result && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            {result.scenario === "iniciante" ? (
-              /* CENÁRIO 1: INICIANTE */
-              <Card className="shadow-2xl shadow-destructive/5 border border-destructive/20 bg-background">
-                <CardContent className="pt-8 pb-8 px-8">
-                  <div className="text-center space-y-6">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-destructive/5 mb-2 border border-destructive/10">
-                      <AlertTriangle className="w-8 h-8 text-destructive" strokeWidth={1.5} />
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-heading font-medium text-foreground">
-                      {result.name}, atenção ao seu futuro.
-                    </h2>
-                    <p className="text-muted-foreground leading-relaxed text-lg max-w-md mx-auto">
-                      No seu ritmo atual, a liberdade financeira pode demorar{" "}
-                      <span className="font-bold text-destructive text-xl font-heading">
-                        {result.yearsReal.toFixed(1)} anos
-                      </span>{" "}
-                      para chegar.
-                    </p>
-                    <div className="bg-accent/30 rounded-lg p-6 border border-accent/50 max-w-sm mx-auto">
-                      <p className="text-foreground/90">
-                        Com uma <span className="font-semibold text-primary">Estratégia de Aceleração</span>, você
-                        poderia reduzir isso para apenas{" "}
-                        <span className="font-bold text-primary text-xl font-heading block mt-2">
-                          {result.yearsOptimized.toFixed(1)} anos
-                        </span>
-                      </p>
-                    </div>
+            <Card className="shadow-sm border border-border/60 bg-card/80 backdrop-blur-sm rounded-xl">
+              <CardContent className="pt-12 pb-12 px-8 text-center space-y-10">
 
-                    <a
-                      href="#offer-iniciante"
-                      className="inline-flex items-center justify-center w-full h-14 px-8 text-lg font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/10 hover:shadow-xl transition-all font-heading"
-                    >
-                      Acessar Plano de Aceleração
-                    </a>
+                {/* Headline */}
+                <div className="space-y-2">
+                  <h2 className="text-2xl md:text-3xl font-heading font-medium text-primary tracking-tight">
+                    {result.name}, o tempo é o único ativo que você não recupera.
+                  </h2>
+                </div>
+
+                {/* Subheadline */}
+                <p className="text-muted-foreground leading-relaxed text-lg max-w-lg mx-auto">
+                  No cenário atual, sua liberdade financeira pode demorar{" "}
+                  <span className="font-bold text-foreground text-xl font-heading border-b-2 border-primary/20">
+                    {result.yearsReal.toFixed(1).replace(".", ",")} anos
+                  </span>{" "}
+                  para chegar.
+                </p>
+
+                {/* Box */}
+                <div className="bg-secondary/10 rounded-lg p-8 border border-secondary/20 max-w-md mx-auto space-y-4">
+                  <div className="flex items-center justify-center gap-2 text-secondary-foreground mb-1">
+                    <PartyPopper className="w-4 h-4" />
+                    <span className="font-medium uppercase tracking-wider text-[10px]">Oportunidade de Ajuste</span>
                   </div>
-                </CardContent>
-              </Card>
-            ) : (
-              /* CENÁRIO 2: INVESTIDOR */
-              <Card className="shadow-2xl shadow-secondary/10 border border-secondary/20 bg-background">
-                <CardContent className="pt-8 pb-8 px-8">
-                  <div className="text-center space-y-6">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-secondary/10 mb-2 border border-secondary/20">
-                      <PartyPopper className="w-8 h-8 text-secondary-foreground" strokeWidth={1.5} />
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-heading font-medium text-foreground">
-                      Parabéns, {result.name}!
-                    </h2>
-                    <p className="text-lg font-medium text-secondary-foreground font-heading">
-                      Você está construindo um legado sólido.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed text-lg max-w-md mx-auto">
-                      Sua projeção aponta que você chegará lá em{" "}
-                      <span className="font-bold text-secondary-foreground text-xl font-heading">
-                        {result.yearsReal.toFixed(1)} anos
-                      </span>
-                      .
-                    </p>
-                    <div className="bg-accent/40 rounded-lg p-6 border border-accent/60 max-w-sm mx-auto">
-                      <p className="text-foreground/90">
-                        Mas sabia que com <span className="font-semibold text-primary">Eficiência Tributária</span> você pode
-                        antecipar sua liberdade para{" "}
-                        <span className="font-bold text-primary text-xl font-heading block mt-2">
-                          {result.yearsOptimized.toFixed(1)} anos
-                        </span>
-                        ?
-                      </p>
-                    </div>
+                  <p className="text-foreground/90 font-heading text-xl leading-snug">
+                    Dependendo das escolhas certas, esse número pode cair para aproximadamente{" "}
+                    <span className="font-bold text-primary">
+                      {result.yearsOptimized.toFixed(1).replace(".", ",")} anos.
+                    </span>
+                  </p>
+                  <div className="w-10 h-[1px] bg-secondary/30 mx-auto my-4" />
+                  <p className="text-muted-foreground text-sm italic">
+                    Mas isso exige um diagnóstico individual, não uma fórmula genérica.
+                  </p>
+                </div>
 
-                    <a
-                      href="#offer-expert"
-                      className="inline-flex items-center justify-center w-full h-14 px-8 text-lg font-medium rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg shadow-secondary/10 hover:shadow-xl transition-all font-heading"
-                    >
-                      Conhecer Mentoria Wealth
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                {/* CTA */}
+                <a
+                  href="https://wa.me/5511999999999?text=Quero%20meu%20diagnóstico%20financeiro%20gratuito"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full h-14 px-8 text-sm uppercase tracking-[0.15em] font-medium rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/10 hover:shadow-xl transition-all"
+                >
+                  Quero meu diagnóstico financeiro gratuito
+                </a>
 
-            {/* Recalculate Button */}
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setResult(null);
-              }}
-              className="w-full h-12 text-muted-foreground hover:text-foreground font-medium"
-            >
-              Fazer Nova Simulação
-            </Button>
+                {/* Recalculate */}
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setResult(null);
+                  }}
+                  className="text-muted-foreground hover:text-foreground text-[10px] uppercase tracking-widest mt-4"
+                >
+                  Refazer Simulação
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         )}
 
         {/* Footer */}
-        <p className="text-center text-xs text-muted-foreground/60 mt-12 max-w-xs mx-auto leading-relaxed">
-          * Simulação baseada em projeções de rentabilidade estimadas. Retornos passados não garantem ganhos futuros.
-        </p>
+        <div className="mt-16 text-center space-y-2 opacity-80">
+          <p className="text-lg font-heading italic text-primary">
+            Sarah Botelho
+          </p>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
+            Especialista em Finanças Pessoais
+          </p>
+        </div>
       </div>
     </div>
   );

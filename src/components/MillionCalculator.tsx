@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import { TrendingUp, Calculator, Target, AlertTriangle, PartyPopper } from "lucide-react";
 import { calculateYearsToMillion, determineScenario, getRatesByProfile } from "@/lib/calculator";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 
 // Zod Schema Definition
 const calculatorSchema = z.object({
@@ -68,16 +70,37 @@ const MillionCalculator = () => {
     onChange(formatted);
   };
 
-  const onSubmit = (data: CalculatorFormValues) => {
+  const onSubmit = async (data: CalculatorFormValues) => {
     setIsCalculating(true);
 
-    setTimeout(() => {
-      const { currentInvestment: pv, monthlyInvestment: pmt, profile, name } = data;
+    try {
+      const { currentInvestment: pv, monthlyInvestment: pmt, profile, name, age } = data;
       const { realRate, optimizedRate } = getRatesByProfile(profile);
 
       const yearsReal = calculateYearsToMillion(pv, pmt, realRate);
       const yearsOptimized = calculateYearsToMillion(pv, pmt, optimizedRate);
       const scenario = determineScenario(pv, profile);
+
+      // Salvar no Supabase
+      const { error } = await supabase
+        .from('calculations')
+        .insert({
+          name,
+          age,
+          current_investment: pv,
+          monthly_investment: pmt,
+          profile,
+          years_real: yearsReal,
+          years_optimized: yearsOptimized,
+          scenario,
+        });
+
+      if (error) {
+        console.error('Erro ao salvar cálculo:', error);
+        toast.error('Não foi possível salvar o cálculo, mas você ainda pode ver os resultados!');
+      } else {
+        console.log('Cálculo salvo com sucesso!');
+      }
 
       setResult({
         yearsReal,
@@ -86,8 +109,12 @@ const MillionCalculator = () => {
         name,
       });
 
+    } catch (err) {
+      console.error('Erro inesperado:', err);
+      toast.error('Ocorreu um erro, mas você ainda pode ver os resultados!');
+    } finally {
       setIsCalculating(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -117,7 +144,7 @@ const MillionCalculator = () => {
             </CardHeader>
             <CardContent className="p-8">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
                   {/* Name */}
                   <FormField

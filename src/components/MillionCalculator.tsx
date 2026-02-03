@@ -47,6 +47,21 @@ const MillionCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
+  const generateWhatsAppLink = (data: CalculationResult) => {
+    const phoneNumber = "5511951929255"; // +55 11 5192-9255
+    const message = `Olá! Meu nome é ${data.name}.
+
+Acabei de fazer uma simulação na *Calculadora do Milhão* e gostaria de um diagnóstico financeiro personalizado.
+
+📊 *Resultado da minha simulação:*
+• Cenário atual: ${data.yearsReal.toFixed(1).replace(".", ",")} anos para atingir R$ 1 milhão
+• Cenário otimizado: ${data.yearsOptimized.toFixed(1).replace(".", ",")} anos
+
+Gostaria de entender como posso acelerar meus resultados e construir meu patrimônio de forma mais eficiente.`;
+
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  };
+
   const form = useForm<z.input<typeof calculatorSchema>>({
     resolver: zodResolver(calculatorSchema),
     defaultValues: {
@@ -365,7 +380,7 @@ const MillionCalculator = () => {
 
                 {/* CTA */}
                 <a
-                  href="https://wa.me/5511999999999?text=Quero%20meu%20diagnóstico%20financeiro%20gratuito"
+                  href={generateWhatsAppLink(result)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center w-full h-14 px-8 text-sm uppercase tracking-[0.15em] font-medium rounded-sm bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg shadow-primary/10 hover:shadow-xl transition-all"

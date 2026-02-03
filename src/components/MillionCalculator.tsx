@@ -22,6 +22,10 @@ import { toast } from "sonner";
 // Zod Schema Definition
 const calculatorSchema = z.object({
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Digite um email válido"),
+  whatsapp: z.string()
+    .min(10, "Digite um WhatsApp válido")
+    .regex(/^[\d\s\(\)\-\+]+$/, "Digite apenas números"),
   age: z.coerce.number().min(18, "Você deve ter pelo menos 18 anos").max(100, "Idade inválida"),
   currentInvestment: z.string().transform((val) => {
     return Number(val.replace(/\D/g, ""));
@@ -66,6 +70,8 @@ Gostaria de entender como posso acelerar meus resultados e construir meu patrim�
     resolver: zodResolver(calculatorSchema),
     defaultValues: {
       name: "",
+      email: "",
+      whatsapp: "",
       age: "" as any,
       currentInvestment: "0",
       monthlyInvestment: "0",
@@ -89,7 +95,7 @@ Gostaria de entender como posso acelerar meus resultados e construir meu patrim�
     setIsCalculating(true);
 
     try {
-      const { currentInvestment: pv, monthlyInvestment: pmt, profile, name, age } = data;
+      const { currentInvestment: pv, monthlyInvestment: pmt, profile, name, age, email, whatsapp } = data;
       const { realRate, optimizedRate } = getRatesByProfile(profile);
 
       const yearsReal = calculateYearsToMillion(pv, pmt, realRate);
@@ -101,6 +107,8 @@ Gostaria de entender como posso acelerar meus resultados e construir meu patrim�
         .from('calculations')
         .insert({
           name,
+          email,
+          whatsapp,
           age,
           current_investment: pv,
           monthly_investment: pmt,
@@ -158,6 +166,15 @@ Gostaria de entender como posso acelerar meus resultados e construir meu patrim�
               </CardTitle>
             </CardHeader>
             <CardContent className="p-8">
+              {/* Lead Magnet Justification */}
+              <div className="mb-8 p-6 bg-secondary/5 rounded-lg border border-secondary/10">
+                <p className="text-sm text-muted-foreground leading-relaxed text-center">
+                  <span className="font-medium text-foreground block mb-2">🎁 Receba gratuitamente:</span>
+                  Seu <span className="font-semibold text-primary">Relatório Personalizado em PDF</span> com estratégias exclusivas baseadas no seu perfil +
+                  <span className="font-semibold text-secondary"> série de 3 emails</span> com dicas de otimização patrimonial.
+                </p>
+              </div>
+
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
@@ -171,6 +188,52 @@ Gostaria de entender como posso acelerar meus resultados e construir meu patrim�
                         <FormControl>
                           <Input
                             placeholder="Como gostaria de ser chamada?"
+                            {...field}
+                            className="h-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all placeholder:text-muted-foreground/40"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Email */}
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground/80 font-medium">
+                          Seu Melhor Email
+                          <span className="text-xs text-muted-foreground ml-2">(para receber seu relatório)</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="seuemail@exemplo.com"
+                            {...field}
+                            className="h-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all placeholder:text-muted-foreground/40"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* WhatsApp */}
+                  <FormField
+                    control={form.control}
+                    name="whatsapp"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-foreground/80 font-medium">
+                          Seu WhatsApp
+                          <span className="text-xs text-muted-foreground ml-2">(para contato personalizado)</span>
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            type="tel"
+                            placeholder="(11) 99999-9999"
                             {...field}
                             className="h-12 bg-transparent border-x-0 border-t-0 border-b border-border/60 focus:border-secondary focus:ring-0 focus:ring-offset-0 px-0 rounded-none text-lg transition-all placeholder:text-muted-foreground/40"
                           />

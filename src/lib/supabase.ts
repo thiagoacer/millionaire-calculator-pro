@@ -22,6 +22,8 @@ export interface Calculation {
   id: string;
   user_id?: string;
   name: string;
+  email: string;
+  whatsapp: string;
   age: number;
   current_investment: number;
   monthly_investment: number;

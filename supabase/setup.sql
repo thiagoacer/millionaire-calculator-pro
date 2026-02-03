@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS calculations (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID REFERENCES users(id) ON DELETE SET NULL,
   name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  whatsapp TEXT NOT NULL,
   age INTEGER NOT NULL CHECK (age >= 18 AND age <= 100),
   current_investment NUMERIC(15, 2) NOT NULL CHECK (current_investment >= 0),
   monthly_investment NUMERIC(15, 2) NOT NULL CHECK (monthly_investment >= 0),
@@ -29,6 +31,8 @@ CREATE TABLE IF NOT EXISTS calculations (
 CREATE INDEX IF NOT EXISTS idx_calculations_user_id ON calculations(user_id);
 CREATE INDEX IF NOT EXISTS idx_calculations_created_at ON calculations(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_calculations_profile ON calculations(profile);
+CREATE INDEX IF NOT EXISTS idx_calculations_email ON calculations(email);
+CREATE INDEX IF NOT EXISTS idx_calculations_whatsapp ON calculations(whatsapp);
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 
 -- Create updated_at trigger function
@@ -70,6 +74,8 @@ CREATE POLICY "Anyone can read users" ON users
 COMMENT ON TABLE users IS 'Tabela de usuários da aplicação';
 COMMENT ON TABLE calculations IS 'Tabela de cálculos/simulações realizadas pelos usuários';
 
+COMMENT ON COLUMN calculations.email IS 'Email do lead para envio de relatórios e acompanhamento';
+COMMENT ON COLUMN calculations.whatsapp IS 'WhatsApp do lead para contato personalizado';
 COMMENT ON COLUMN calculations.current_investment IS 'Valor atual investido em reais';
 COMMENT ON COLUMN calculations.monthly_investment IS 'Valor de investimento mensal em reais';
 COMMENT ON COLUMN calculations.profile IS 'Perfil do investidor: conservative ou aggressive';

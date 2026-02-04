@@ -52,7 +52,7 @@ const MillionCalculator = () => {
   const [isCalculating, setIsCalculating] = useState(false);
 
   const generateWhatsAppLink = (data: CalculationResult) => {
-    const phoneNumber = "5511951929255"; // +55 11 5192-9255
+    const phoneNumber = "551151929255"; // +55 11 5192-9255
     const message = `Olá! Meu nome é ${data.name}.
 
 Acabei de fazer uma simulação na *Calculadora do Milhão* e gostaria de um diagnóstico financeiro personalizado.
